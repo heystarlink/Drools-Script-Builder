@@ -1,0 +1,31 @@
+import org.drools.example.model.fire.*
+rule "insertLogical_发生火灾时，往工作内存中插入告警对象"
+    when
+        $fire: Fire()
+    then
+        System.out.println("1、发生火灾时，往工作内存中插入告警对象");
+        insertLogical(new Alarm($fire));
+end
+
+rule "insertLogical_当规则内存中存在告警对象，进行告警，然后删除火灾对象"
+    when
+        $fire: Fire()
+        $alarm: Alarm( fire == $fire )
+    then
+        System.out.println("2、进行告警，然后删除对应的火灾对象" + $alarm.getFire());
+        delete($fire);
+end
+
+rule "insertLogical_检测告警对象是否还是存在-01"
+    when
+        Alarm()
+    then
+        System.out.println("3、insertLogical 插入的告警对象还存在");
+end
+
+rule "insertLogical_检测告警对象不存在"
+    when
+        not Alarm()
+    then
+        System.out.println("3、insertLogical 插入的告警对象不存在");
+end

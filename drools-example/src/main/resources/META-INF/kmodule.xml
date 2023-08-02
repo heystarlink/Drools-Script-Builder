@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://www.drools.org/xsd/kmodule">
+
+
+    <kbase name="myKbase" packages="rules">
+        <ksession name="BussPassBadKS" type="stateful" default="true"/>
+    </kbase>
+
+</kmodule>
+
+

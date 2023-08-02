@@ -1,0 +1,19 @@
+
+import org.drools.example.model.Order;
+
+agenda-group "ValidationGroup"
+rule "CheckAmountRule"
+    when
+        $order: Order(amount > 1000)
+    then
+        System.out.println("Order amount exceeds the limit: " + $order.getAmount());
+end
+
+agenda-group "DiscountGroup"
+rule "CalculateDiscountRule"
+    when
+        $order: Order()
+    then
+        $order.setDiscount($order.getAmount() * 0.1);
+        System.out.println("Discount calculated: " + $order.getDiscount());
+end

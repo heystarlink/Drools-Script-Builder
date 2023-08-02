@@ -1,0 +1,53 @@
+import org.drools.example.model.buspass.Person;
+import org.drools.example.model.buspass.IsChild;
+import org.drools.example.model.buspass.IsAdult;
+import org.drools.example.model.buspass.ChildBusPass;
+import org.drools.example.model.buspass.BusPass;
+import org.drools.example.model.buspass.AdultBusPass;
+
+rule "Infer Child"
+when
+  $p : Person(age < 18)
+then
+  insertLogical(new IsChild($p)); // 插入逻辑事实
+  System.out.println("===>Infer Child>>>>");
+end
+
+rule "Infer Adult"
+when
+  $p : Person(age >= 18)
+then
+  insertLogical(new IsAdult($p));
+  System.out.println("===>Infer Adult>>>>");
+end
+
+rule "Issue Child Bus Pass"
+when
+  $p : Person()
+    IsChild(person == $p)
+then
+  insertLogical(new ChildBusPass($p));
+  System.out.println("===>Issue Child Bus Pass>>>>");
+end
+
+rule "Issue Adult Bus Pass"
+when
+  $p : Person()
+    IsAdult(person ==$p)
+then
+  insertLogical(new AdultBusPass($p));
+  System.out.println("===>Issue Adult Bus Pass>>>>");
+end
+
+rule "Return ChildBusPass Request"
+when
+  $p : Person()
+    not(ChildBusPass(person == $p))
+then
+    requestChildBusPass($p);
+end
+
+
+function void requestChildBusPass(Person person) {
+  System.out.println("请求儿童公交卡：" + person.getName());
+}

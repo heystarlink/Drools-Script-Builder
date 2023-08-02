@@ -1,0 +1,25 @@
+import org.drools.example.model.buspass.Person;
+import org.drools.example.model.buspass.IsChild;
+import org.drools.example.model.buspass.IsAdult;
+import org.drools.example.model.buspass.ChildBusPass;
+import org.drools.example.model.buspass.BusPass;
+import org.drools.example.model.buspass.AdultBusPass;
+
+
+/*
+
+rule "Infer Child"
+when
+  $p : Person(age < 18)
+then
+  insertLogical(new IsChild($p));
+  System.out.println("insert: Infer Child");
+end
+
+rule "Infer Adult"
+when
+  $p : Person(age >= 18)
+then
+  insertLogical(new IsAdult($p));
+  System.out.println("insert: Infer Adult");
+end*/
